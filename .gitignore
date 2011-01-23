@@ -1,0 +1,6 @@
+bin
+obj
+_ReSharper.*
+*.resharper.user
+Twitterr.5.1.ReSharper.user
+*~
