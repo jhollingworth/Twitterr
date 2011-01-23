@@ -1,5 +1,6 @@
 ﻿using System;
 using TweetSharp.Twitter.Fluent;
+using TweetSharp.Twitter.Model;
 
 namespace Twitterr.Tasks
 {
@@ -7,7 +8,19 @@ namespace Twitterr.Tasks
     {
         public IAsyncResult Tweet(string status)
         {
-            return Twitter.Statuses().Update(status).BeginRequest();
+            return Twitter
+                .Statuses()
+                .Update(status)
+                .BeginRequest();
+        }
+
+        public IAsyncResult Timeline(Action<TwitterResult> callback)
+        {
+            return Twitter
+                .Statuses()
+                .OnHomeTimeline()
+                .CallbackTo((sender, args, userState) => callback(args))
+                .BeginRequest();
         }
 
         private static IFluentTwitter Twitter
